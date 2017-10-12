@@ -13,8 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 /**
- * @CreateTime Created by Elv Zuo on 2017/3/13.
- * @Function <p></p>
+ *
  */
 @Configuration
 @EnableAutoConfiguration
