@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <include file="classpath:lisquibase/chagelog/2017_10_11_add_table_member.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:lisquibase/chagelog/2017_10_11_add_table_user.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:lisquibase/chagelog/2017_09_28_add_table_publisher.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:lisquibase/chagelog/2017_10_10_add_table_talent.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:lisquibase/chagelog/2017_10_10_add_table_company.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:lisquibase/chagelog/2017_10_11_add_column.xml" relativeToChangelogFile="false"/>
+
+</databaseChangeLog>

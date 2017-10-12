@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<body>
+
+<p>hkMP7VF61SuvhqYmcU/Ii28bC5NPDjBR8w6oVisTsZ0jS8tRqKaHOjP//eW9TJXL0DipUI7UR/64j8DaOPu4a7ZOgo4MZCAHXlDOb9+ywCz6ojHPSEkKDYhGwDsMlnszushb6g==</p>
+
+<div th:if="${not #lists.isEmpty(customers)}">
+  <h2>Customer List</h2>
+  <table id="customersTable" class="table table-striped">
+    <thead>
+    <tr>
+      <th>url</th>
+      <th>createDate</th>
+    </tr>
+    </thead>
+    <p>${customer.url}</p>
+    <tbody>
+    <tr th:each="customer : ${customers}">
+      <a th:href="${customer.url}"/>
+      <td th:text="${customer.url}">url</td>
+      <td th:text="${#dates.format(customer.createDate,'MM/dd/yyyy HH:mm:ss')}">createDate</td>
+      <!--<td><a th:href="${ '/product/' + product.id}">View</a></td>-->
+      <!--<td><a th:href="${'/product/edit/' + product.id}">Edit</a></td>-->
+    </tr>
+    </tbody>
+
+  </table>
+
+</div>
+
+
+</body>
+</html>

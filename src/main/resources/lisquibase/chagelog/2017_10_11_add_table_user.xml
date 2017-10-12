@@ -1,0 +1,41 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="2017_10_10_add_table_member" author="avery" >
+        <comment>create table avery_member</comment>
+        <createTable tableName="AVERY_USER">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="login" type="varchar(16)">
+                <constraints  nullable="false"/>
+            </column>
+            <column name="password" type="int">
+                <constraints  nullable="false"/>
+            </column>
+
+            <column name="email" type="varchar(64)">
+                <constraints  nullable="false"/>
+            </column>
+
+            <column name="is_member" type="bit">
+                <constraints  nullable="false"/>
+            </column>
+
+            <column name="member_id" type="bigint">
+                <constraints  nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+            baseTableName="AVERY_USER"
+            baseColumnNames="member_id"
+            constraintName="fk_member_id"
+            referencedTableName="AVERY_MEMBER"
+            referencedColumnNames="id" />
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,40 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="2017_10_10_add_table_company" author="avery" >
+        <comment>create table publisher</comment>
+        <createTable tableName="AVERY_COMPANY">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="president_id" type="bigint">
+                <constraints  nullable="false"/>
+            </column>
+            <column name="address" type="varchar(255)">
+                <constraints  nullable="false"/>
+            </column>
+
+            <column name="person_count" type="bigint">
+                <constraints  nullable="false"/>
+            </column>
+
+            <column name="name" type="varchar(64)">
+                <constraints  nullable="false"/>
+            </column>
+
+            <column name="email" type="varchar(128)">
+                <constraints  nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+            baseTableName="AVERY_COMPANY"
+            baseColumnNames="president_id"
+            constraintName="fk_president_id"
+            referencedTableName="AVERY_USER"
+            referencedColumnNames="id" />
+    </changeSet>
+</databaseChangeLog>
