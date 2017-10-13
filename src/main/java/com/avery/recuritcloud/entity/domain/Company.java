@@ -45,8 +45,15 @@ public class Company {
     @Column(name="email")
     private String email;
     
+    @NotNull
+    @Column(name = "privilege")
+    private Boolean privilege;
+    
     @Column(name = "is_accept_push_talents")
     private boolean isAcceptPushTalents=Boolean.FALSE;
+    
+    @Column(name = "status")
+    private Integer status;
     
     public Long getId() {
         return id;
@@ -102,5 +109,36 @@ public class Company {
     
     public void setAcceptPushTalents(boolean acceptPushTalents) {
         isAcceptPushTalents = acceptPushTalents;
+    }
+    
+    public Boolean getPrivilege() {
+        return privilege;
+    }
+    
+    public void setPrivilege(Boolean privilege) {
+        this.privilege = privilege;
+    }
+    
+    public Integer isStatus() {
+        return status;
+    }
+    
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+    
+    @Override
+    public String toString() {
+        return "Company{" +
+            "id=" + id +
+            ", president=" + president +
+            ", personCount=" + personCount +
+            ", address='" + address + '\'' +
+            ", name='" + name + '\'' +
+            ", email='" + email + '\'' +
+            ", privilege=" + privilege +
+            ", isAcceptPushTalents=" + isAcceptPushTalents +
+            ", status=" + status +
+            '}';
     }
 }

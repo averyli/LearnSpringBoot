@@ -46,4 +46,5 @@ public class QuartzConfig {
     public Scheduler scheduler(ApplicationContext applicationContext) {
         return schedulerFactoryBean(applicationContext).getObject();
     }
+    
 }

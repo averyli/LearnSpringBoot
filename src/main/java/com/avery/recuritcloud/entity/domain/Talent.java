@@ -48,4 +48,12 @@ public class Talent {
         this.user = user;
     }
     
+    @Override
+    public String toString() {
+        return "Talent{" +
+            "id=" + id +
+            ", status=" + status +
+            ", user=" + user +
+            '}';
+    }
 }

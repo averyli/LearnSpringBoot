@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CompanyRepository  extends JpaRepository<Company,Long> {
     List<Company> findByIsAcceptPushTalents(Boolean isAcceptPushTalents);
+    
+    List<Company> findByStatus(Integer status);
 }

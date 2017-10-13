@@ -1,5 +1,7 @@
 package com.avery.recuritcloud.common.quartz;
 
+import com.avery.recuritcloud.common.enums.ConcurrentHashMapSingleton;
+import com.avery.recuritcloud.common.enums.ExceutorServiceSingleton;
 import com.avery.recuritcloud.common.enums.TalentStatusEnum;
 import com.avery.recuritcloud.entity.domain.Member;
 import com.avery.recuritcloud.entity.domain.Talent;
@@ -7,6 +9,9 @@ import com.avery.recuritcloud.entity.domain.User;
 import com.avery.recuritcloud.repository.MemberRepository;
 import com.avery.recuritcloud.repository.TalentRepository;
 import com.avery.recuritcloud.repository.UserRepository;
+import com.avery.recuritcloud.service.GrabService;
+import com.avery.recuritcloud.service.listener.GrabTalentsThread;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -14,8 +19,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class CreateTalentJob implements Job {
-    public  static  final Logger logger= LoggerFactory.getLogger(CreateTalentJob.class);
+public class CreateSaveTalentJob implements Job {
+    public  static  final Logger logger= LoggerFactory.getLogger(CreateSaveTalentJob.class);
     
     @Autowired
     private TalentRepository talentRepository;
@@ -26,9 +31,12 @@ public class CreateTalentJob implements Job {
     @Autowired
     private UserRepository userRepository;
     
+    @Autowired
+    private GrabService grabService;
+    
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        logger.info("create talent and save... start");
+        logger.info("execute CreateTalentJob...");
         Talent talent=new Talent();
         
         User user=new User();
@@ -47,9 +55,17 @@ public class CreateTalentJob implements Job {
         User savedUser=userRepository.save(user);
         
         
-        talent.setStatus(TalentStatusEnum.CREATED.getStatus());
+        talent.setStatus(TalentStatusEnum.IN_POOL.getStatus());
         talent.setUser(savedUser);
         talentRepository.save(talent);
-        logger.info("create talent and save... end");
+        
+        listenTalent(talent);
+    }
+    
+    public void listenTalent(Talent talent)
+    {
+        logger.info("ExceutorServiceSingleton Submit GrabTalentsThread To Listen The Talent:{}...",talent.getId());
+        ConcurrentHashMapSingleton.INSTANCE.setCompanyQueue(talent.getId(),new ConcurrentLinkedQueue());
+        ExceutorServiceSingleton.INSTANCE.submit(new GrabTalentsThread(talent.getId(),grabService));
     }
 }

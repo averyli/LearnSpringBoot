@@ -49,4 +49,6 @@ liquibase:
 #    password: 123456
 #    url: jdbc:mysql://127.0.0.1/test
     enabled: true
-    drop-first: true
+    drop-first: false
+threadpool:
+    threadCount: 10

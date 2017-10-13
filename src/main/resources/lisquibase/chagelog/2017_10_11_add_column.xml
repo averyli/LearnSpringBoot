@@ -9,6 +9,12 @@
             <column name="is_accept_push_talents" type="bit">
                 <constraints nullable="false"/>
             </column>
+            <column name="privilege" type="bit">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="int">
+                <constraints nullable="false"/>
+            </column>
         </addColumn>
     </changeSet>
 

@@ -2,8 +2,12 @@ package com.avery.recuritcloud.service;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.MimeMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.SimpleMailMessage;
@@ -22,7 +26,10 @@ public class EmailService{
     
     public static final String PUBBLISHER_EMAIL_TEMPLATE = "publisher";
     
-    private String emailFrom="";
+    public static final Logger logger= LoggerFactory.getLogger(EmailService.class);
+    
+    @Value("${spring.mail.username}")
+    private String emailFrom;
     // @Autowired
     
     @Autowired
@@ -55,8 +62,14 @@ public class EmailService{
         simpleMailMessage.setFrom(emailFrom);
         simpleMailMessage.setTo(sendTo);
         simpleMailMessage.setText("抢单失败");
-        
-        javaMailSender.send(simpleMailMessage);
+        try
+        {
+            javaMailSender.send(simpleMailMessage);
+        }
+        catch (Exception e)
+        {
+            logger.info("Email Address error:{},e.message():{}",sendTo,e.getMessage());
+        }
     }
     
     public void sendEmailGrabSuccess(String sendTo) {
