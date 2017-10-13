@@ -53,4 +53,13 @@ public class Member {
     public void setLevel(Integer level) {
         this.level = level;
     }
+    
+    @Override
+    public String toString() {
+        return "Member{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", level=" + level +
+            '}';
+    }
 }

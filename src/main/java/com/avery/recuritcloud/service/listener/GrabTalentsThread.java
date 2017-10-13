@@ -5,6 +5,7 @@ import com.avery.recuritcloud.common.enums.ConcurrentHashMapSingleton;
 import com.avery.recuritcloud.entity.domain.Company;
 import com.avery.recuritcloud.entity.domain.Talent;
 import com.avery.recuritcloud.service.GrabService;
+import groovy.transform.Synchronized;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,18 +53,18 @@ public class GrabTalentsThread implements Runnable {
         return false;
     }
 
-    private Boolean startGrabTalents() {
+    private synchronized Boolean startGrabTalents() {
         logger.info("company start grab talent...");
         Long companyId = GrabTalentsArthmetic.firstComeGrabTalentsArthmetic(ConcurrentHashMapSingleton.INSTANCE.getCompanyQueue(talentsId));
-        logger.info("The Company:{} Grab Talent:{} Success... ",companyId,talentsId);
         if(companyId!=null)
         {
-            ConcurrentHashMapSingleton.INSTANCE.removeKey(talentsId);
+            logger.info("The Company:{} Grab Talent:{} Success... ",companyId,talentsId);
             //发送给抢单车成功邮件
-            grabService.sendEmailGrabSuccess(companyId);
+            grabService.sendEmailGrabSuccess(companyId,talentsId);
             //给抢单失败的发送邮件
             logger.info("GrabFail CompanyQueue:{} ",ConcurrentHashMapSingleton.INSTANCE.getCompanyQueue(talentsId));
-            grabService.sendEmailGrabFail(ConcurrentHashMapSingleton.INSTANCE.getCompanyQueue(talentsId));
+            grabService.sendEmailGrabFail(ConcurrentHashMapSingleton.INSTANCE.getCompanyQueue(talentsId),talentsId);
+            ConcurrentHashMapSingleton.INSTANCE.removeKey(talentsId);
             logger.info("Grab talents end...");
             return true;
         }

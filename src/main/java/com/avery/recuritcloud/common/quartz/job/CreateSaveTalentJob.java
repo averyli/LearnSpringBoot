@@ -1,4 +1,4 @@
-package com.avery.recuritcloud.common.quartz;
+package com.avery.recuritcloud.common.quartz.job;
 
 import com.avery.recuritcloud.common.enums.ConcurrentHashMapSingleton;
 import com.avery.recuritcloud.common.enums.ExceutorServiceSingleton;

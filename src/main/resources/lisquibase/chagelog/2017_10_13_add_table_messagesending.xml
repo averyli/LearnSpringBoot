@@ -1,0 +1,43 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="2017_10_13_add_table_messagesending" author="avery" >
+        <comment>create table messagesending</comment>
+        <createTable tableName="AVERY_MESSAGE_SENDING">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="send_to" type="varchar(32)">
+                <constraints  nullable="false"/>
+            </column>
+            <column name="copy_to" type="varchar(255)">
+                <constraints  nullable="true"/>
+            </column>
+
+            <column name="message" type="varchar(255)">
+                <constraints  nullable="true"/>
+            </column>
+
+            <column name="subject" type="varchar(64)">
+                <constraints  nullable="true"/>
+            </column>
+
+            <column name="record" type="varchar(64)">
+                <constraints  nullable="true"/>
+            </column>
+
+            <column name="talent_info" type="varchar(255)">
+                <constraints  nullable="true"/>
+            </column>
+
+            <column name="status" type="int">
+                <constraints  nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+</databaseChangeLog>

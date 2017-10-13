@@ -1,5 +1,10 @@
 package com.avery.recuritcloud.service;
 
+import com.avery.recuritcloud.entity.domain.MessageSending;
+import com.avery.recuritcloud.entity.domain.Talent;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 import javax.mail.internet.AddressException;
@@ -56,32 +61,74 @@ public class EmailService{
         
     }
     
-    public void sendEmailGrabFail(String sendTo) {
+    public void sendEmailGrab(MessageSending messageSending) {
+        logger.info("send grab email  to {}",messageSending.getSendTo());
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         
         simpleMailMessage.setFrom(emailFrom);
-        simpleMailMessage.setTo(sendTo);
-        simpleMailMessage.setText("抢单失败");
+        simpleMailMessage.setTo(messageSending.getSendTo());
+        ObjectMapper objectMapper=new ObjectMapper();
+        try {
+            Talent talent=objectMapper.readValue(messageSending.getTalentInfo(),Talent.class);
+            logger.info(messageSending.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        simpleMailMessage.setText(messageSending.getMessage());
         try
         {
             javaMailSender.send(simpleMailMessage);
         }
         catch (Exception e)
         {
-            logger.info("Email Address error:{},e.message():{}",sendTo,e.getMessage());
+            logger.info("Email Address error:{},e.message():{}",messageSending.getSendTo(),e.getMessage());
         }
     }
     
-    public void sendEmailGrabSuccess(String sendTo) {
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        
-        simpleMailMessage.setFrom(emailFrom);
-        simpleMailMessage.setTo(sendTo);
-        simpleMailMessage.setText("抢单成功");
-        
-        javaMailSender.send(simpleMailMessage);
-    }
-    
+    // public void sendEmailGrabFail(MessageSending messageSending) {
+    //     logger.info("send grab email fail to {}",messageSending.getSendTo());
+    //     SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+    //
+    //     simpleMailMessage.setFrom(emailFrom);
+    //     simpleMailMessage.setTo(messageSending.getSendTo());
+    //     ObjectMapper objectMapper=new ObjectMapper();
+    //     try {
+    //         Talent talent=objectMapper.readValue(messageSending.getTalentInfo(),Talent.class);
+    //         String text=MessageFormat.format("您失败招聘此天才:{0}",talent.toString());
+    //
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+    //     simpleMailMessage.setText(messageSending.getMessage());
+    //     try
+    //     {
+    //         javaMailSender.send(simpleMailMessage);
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         logger.info("Email Address error:{},e.message():{}",messageSending.getSendTo(),e.getMessage());
+    //     }
+    // }
+    //
+    // public void sendEmailGrabSuccess(String sendTo,Talent talent) {
+    //     logger.info("send grab email success to {}",sendTo);
+    //     SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+    //
+    //     simpleMailMessage.setFrom(emailFrom);
+    //     simpleMailMessage.setTo(sendTo);
+    //     String text=MessageFormat.format("您成功招聘了此天才:{0}",talent.toString());
+    //     simpleMailMessage.setText(text);
+    //
+    //     try
+    //     {
+    //         javaMailSender.send(simpleMailMessage);
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         logger.info("Send Email  error:{},e.message():{}",sendTo,e.getMessage());
+    //     }
+    // }
+    //
     public void sendPushTalents(String sendTo) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
     

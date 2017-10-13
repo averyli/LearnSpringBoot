@@ -1,5 +1,8 @@
 package com.avery.recuritcloud.common.quartz;
 
+import com.avery.recuritcloud.common.quartz.job.CompanyGrabTalentJob;
+import com.avery.recuritcloud.common.quartz.job.CreateSaveCompanyJob;
+import com.avery.recuritcloud.common.quartz.job.CreateSaveTalentJob;
 import com.avery.recuritcloud.repository.CompanyRepository;
 import com.avery.recuritcloud.service.GrabService;
 import org.joda.time.DateTime;

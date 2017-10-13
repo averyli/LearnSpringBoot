@@ -11,5 +11,5 @@
     <include file="classpath:lisquibase/chagelog/2017_10_10_add_table_talent.xml" relativeToChangelogFile="false"/>
     <include file="classpath:lisquibase/chagelog/2017_10_10_add_table_company.xml" relativeToChangelogFile="false"/>
     <include file="classpath:lisquibase/chagelog/2017_10_11_add_column.xml" relativeToChangelogFile="false"/>
-
+    <include file="classpath:lisquibase/chagelog/2017_10_13_add_table_messagesending.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

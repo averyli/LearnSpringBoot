@@ -1,4 +1,4 @@
-package com.avery.recuritcloud.common.quartz;
+package com.avery.recuritcloud.common.quartz.job;
 
 import com.avery.recuritcloud.common.enums.CompanyStatusEnum;
 import com.avery.recuritcloud.common.enums.TalentStatusEnum;
